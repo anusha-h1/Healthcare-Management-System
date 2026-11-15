@@ -1,0 +1,3 @@
+package com.healthcare.dto;
+import com.healthcare.entity.*;import jakarta.validation.constraints.*;import java.time.Instant;
+public final class AppointmentDtos {private AppointmentDtos(){} public record Create(@NotNull Long doctorId,@NotNull Instant startAt,@Size(max=500) String reason){} public record View(Long id,Long patientId,String patientName,Long doctorId,String doctorName,String specialization,Instant startAt,Instant endAt,AppointmentStatus status){public static View from(Appointment a){return new View(a.getId(),a.getPatient().getId(),a.getPatient().getUser().getFullName(),a.getDoctor().getId(),a.getDoctor().getUser().getFullName(),a.getDoctor().getSpecialization(),a.getStartAt(),a.getEndAt(),a.getStatus());}} }

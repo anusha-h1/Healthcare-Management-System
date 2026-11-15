@@ -1,0 +1,3 @@
+package com.healthcare.exception;
+import org.springframework.http.HttpStatus;
+public class ApiException extends RuntimeException { private final HttpStatus status; public ApiException(HttpStatus status,String message){super(message);this.status=status;} public HttpStatus getStatus(){return status;} public static ApiException notFound(String s){return new ApiException(HttpStatus.NOT_FOUND,s);} public static ApiException conflict(String s){return new ApiException(HttpStatus.CONFLICT,s);} public static ApiException forbidden(){return new ApiException(HttpStatus.FORBIDDEN,"You are not allowed to access this resource");} }

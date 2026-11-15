@@ -1,0 +1,5 @@
+package com.healthcare.config;
+import com.healthcare.entity.*;import com.healthcare.repository.UserRepository;import org.springframework.beans.factory.annotation.Value;import org.springframework.boot.CommandLineRunner;import org.springframework.context.annotation.Bean;import org.springframework.context.annotation.Configuration;import org.springframework.security.crypto.password.PasswordEncoder;
+@Configuration public class AdminBootstrap {
+ @Bean CommandLineRunner bootstrapAdmin(UserRepository users,PasswordEncoder encoder,@Value("${BOOTSTRAP_ADMIN_EMAIL:}") String email,@Value("${BOOTSTRAP_ADMIN_PASSWORD:}") String password){return args->{if(email.isBlank()&&password.isBlank())return;if(email.isBlank()||password.length()<16)throw new IllegalStateException("Set both BOOTSTRAP_ADMIN_EMAIL and a BOOTSTRAP_ADMIN_PASSWORD of at least 16 characters");if(!users.existsByEmailIgnoreCase(email))users.save(new AppUser("Administrator",email.trim().toLowerCase(),encoder.encode(password),Role.ADMIN));};}
+}

@@ -1,0 +1,3 @@
+package com.healthcare.controller;
+import com.healthcare.dto.AuthDtos.*; import com.healthcare.service.AuthService; import jakarta.validation.Valid; import org.springframework.http.*; import org.springframework.web.bind.annotation.*;
+@RestController @RequestMapping("/api/v1/auth") public class AuthController { private final AuthService service;public AuthController(AuthService s){service=s;} @PostMapping("/register") ResponseEntity<Token> register(@Valid @RequestBody Register r){return ResponseEntity.status(HttpStatus.CREATED).body(service.register(r));} @PostMapping("/login") Token login(@Valid @RequestBody Login r){return service.login(r);} }
